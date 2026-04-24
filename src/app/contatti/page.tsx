@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 import { z } from "zod";
 import { CONTACT } from "@/lib/contacts";
+import { FadeIn, StaggerContainer, StaggerItem, ScaleIn, HoverScale } from "@/components/framer-animations";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Inserisci il tuo nome").max(100),
@@ -40,126 +41,148 @@ export default function ContattiPage() {
 
   return (
     <>
-      <section className="py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <span className="inline-block rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
-            Contatti
-          </span>
-          <h1 className="mt-6 max-w-3xl font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
-            Parliamone. <em className="font-normal">Senza impegno.</em>
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-            Compila il modulo o scegli il canale che preferisci. Rispondiamo entro 24 ore.
-          </p>
-        </div>
-      </section>
-
-      <section className="pb-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12">
-          <div className="space-y-4 lg:col-span-5">
-            <a
-              href={`tel:${CONTACT.phoneTel}`}
-              className="flex items-center gap-4 rounded-2xl border border-border/60 bg-background p-6 transition-colors hover:bg-secondary"
-            >
-              <span className="grid size-12 place-items-center rounded-full bg-secondary"><Phone className="size-5" /></span>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Chiama ora</p>
-                <p className="font-semibold">{CONTACT.phone}</p>
-              </div>
-            </a>
-            <a
-              href={CONTACT.whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 rounded-2xl border border-border/60 bg-background p-6 transition-colors hover:bg-secondary"
-            >
-              <span className="grid size-12 place-items-center rounded-full bg-[#25D366]/15 text-[#25D366]"><MessageCircle className="size-5" /></span>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">WhatsApp</p>
-                <p className="font-semibold">{CONTACT.whatsapp}</p>
-              </div>
-            </a>
-            <a
-              href={`mailto:${CONTACT.email}`}
-              className="flex items-center gap-4 rounded-2xl border border-border/60 bg-background p-6 transition-colors hover:bg-secondary"
-            >
-              <span className="grid size-12 place-items-center rounded-full bg-secondary"><Mail className="size-5" /></span>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Email</p>
-                <p className="font-semibold">{CONTACT.email}</p>
-              </div>
-            </a>
-            <div className="flex items-center gap-4 rounded-2xl border border-border/60 bg-background p-6">
-              <span className="grid size-12 place-items-center rounded-full bg-secondary"><MapPin className="size-5" /></span>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Sede</p>
-                <p className="font-semibold text-sm">{CONTACT.address}</p>
-                <p className="text-xs text-muted-foreground">{CONTACT.hours}</p>
-              </div>
-            </div>
-          </div>
-
-          <form
-            onSubmit={onSubmit}
-            className="rounded-3xl bg-primary p-8 text-primary-foreground md:p-12 lg:col-span-7"
-            noValidate
-          >
-            <h2 className="font-display text-3xl tracking-tight">Richiedi un preventivo</h2>
-            <p className="mt-2 text-sm text-primary-foreground/70">
-              Sopralluogo gratuito a Bari e provincia.
+      <section className="py-20 md:py-24 overflow-hidden">
+        <StaggerContainer className="mx-auto max-w-7xl px-6">
+          <StaggerItem>
+            <span className="inline-block rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
+              Contatti
+            </span>
+          </StaggerItem>
+          <StaggerItem>
+            <h1 className="mt-6 max-w-3xl font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
+              Parliamone. <em className="font-normal">Senza impegno.</em>
+            </h1>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+              Compila il modulo o scegli il canale che preferisci. Rispondiamo entro 24 ore.
             </p>
+          </StaggerItem>
+        </StaggerContainer>
+      </section>
 
-            <div className="mt-8 grid gap-5 md:grid-cols-2">
-              <Field name="name" label="Nome e cognome" error={errors.name} />
-              <Field name="phone" label="Telefono" type="tel" error={errors.phone} />
-              <div className="md:col-span-2">
-                <Field name="email" label="Email" type="email" error={errors.email} />
-              </div>
-              <div className="md:col-span-2">
-                <label className="mb-2 block text-xs font-bold uppercase tracking-widest text-primary-foreground/60">
-                  Servizio di interesse
-                </label>
-                <select
-                  name="service"
-                  className="w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/5 px-4 py-3 text-sm focus:border-accent focus:outline-none"
-                  defaultValue=""
+      <section className="pb-20 overflow-hidden">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12">
+          <StaggerContainer className="space-y-4 lg:col-span-5">
+            <StaggerItem>
+              <HoverScale>
+                <a
+                  href={`tel:${CONTACT.phoneTel}`}
+                  className="flex items-center gap-4 rounded-2xl border border-border/60 bg-background p-6 transition-colors hover:border-accent/40"
                 >
-                  <option value="" className="text-foreground">Seleziona…</option>
-                  <option className="text-foreground">Infissi</option>
-                  <option className="text-foreground">Porta blindata</option>
-                  <option className="text-foreground">Tapparelle</option>
-                  <option className="text-foreground">Zanzariere</option>
-                  <option className="text-foreground">Manutenzione</option>
-                  <option className="text-foreground">Altro</option>
-                </select>
+                  <span className="grid size-12 place-items-center rounded-full bg-secondary"><Phone className="size-5" /></span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Chiama ora</p>
+                    <p className="font-semibold">{CONTACT.phone}</p>
+                  </div>
+                </a>
+              </HoverScale>
+            </StaggerItem>
+            <StaggerItem>
+              <HoverScale>
+                <a
+                  href={CONTACT.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 rounded-2xl border border-border/60 bg-background p-6 transition-colors hover:border-accent/40"
+                >
+                  <span className="grid size-12 place-items-center rounded-full bg-[#25D366]/15 text-[#25D366]"><MessageCircle className="size-5" /></span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">WhatsApp</p>
+                    <p className="font-semibold">{CONTACT.whatsapp}</p>
+                  </div>
+                </a>
+              </HoverScale>
+            </StaggerItem>
+            <StaggerItem>
+              <HoverScale>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="flex items-center gap-4 rounded-2xl border border-border/60 bg-background p-6 transition-colors hover:border-accent/40"
+                >
+                  <span className="grid size-12 place-items-center rounded-full bg-secondary"><Mail className="size-5" /></span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Email</p>
+                    <p className="font-semibold">{CONTACT.email}</p>
+                  </div>
+                </a>
+              </HoverScale>
+            </StaggerItem>
+            <StaggerItem>
+              <div className="flex items-center gap-4 rounded-2xl border border-border/60 bg-background p-6">
+                <span className="grid size-12 place-items-center rounded-full bg-secondary"><MapPin className="size-5" /></span>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Sede</p>
+                  <p className="font-semibold text-sm">{CONTACT.address}</p>
+                  <p className="text-xs text-muted-foreground">{CONTACT.hours}</p>
+                </div>
               </div>
-              <div className="md:col-span-2">
-                <Field name="message" label="Messaggio" textarea error={errors.message} />
-              </div>
-            </div>
+            </StaggerItem>
+          </StaggerContainer>
 
-            <button
-              type="submit"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground transition-transform hover:scale-[1.02] active:scale-95"
+          <FadeIn className="lg:col-span-7" delay={0.2}>
+            <form
+              onSubmit={onSubmit}
+              className="h-full rounded-3xl bg-primary p-8 text-primary-foreground md:p-12"
+              noValidate
             >
-              <Send className="size-4" /> Invia richiesta
-            </button>
+              <h2 className="font-display text-3xl tracking-tight">Richiedi un preventivo</h2>
+              <p className="mt-2 text-sm text-primary-foreground/70">
+                Sopralluogo gratuito a Bari e provincia.
+              </p>
 
-            {state === "ok" && (
-              <p className="mt-6 rounded-xl bg-accent/15 p-4 text-sm text-accent-foreground border border-accent/30">
-                Grazie! Ti ricontatteremo entro 24 ore.
-              </p>
-            )}
-            {state === "error" && Object.keys(errors).length > 0 && (
-              <p className="mt-6 rounded-xl bg-destructive/15 p-4 text-sm">
-                Controlla i campi evidenziati.
-              </p>
-            )}
-          </form>
+              <div className="mt-8 grid gap-5 md:grid-cols-2">
+                <Field name="name" label="Nome e cognome" error={errors.name} />
+                <Field name="phone" label="Telefono" type="tel" error={errors.phone} />
+                <div className="md:col-span-2">
+                  <Field name="email" label="Email" type="email" error={errors.email} />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="mb-2 block text-xs font-bold uppercase tracking-widest text-primary-foreground/60">
+                    Servizio di interesse
+                  </label>
+                  <select
+                    name="service"
+                    className="w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/5 px-4 py-3 text-sm focus:border-accent focus:outline-none"
+                    defaultValue=""
+                  >
+                    <option value="" className="text-foreground">Seleziona…</option>
+                    <option className="text-foreground">Infissi</option>
+                    <option className="text-foreground">Porta blindata</option>
+                    <option className="text-foreground">Tapparelle</option>
+                    <option className="text-foreground">Zanzariere</option>
+                    <option className="text-foreground">Manutenzione</option>
+                    <option className="text-foreground">Altro</option>
+                  </select>
+                </div>
+                <div className="md:col-span-2">
+                  <Field name="message" label="Messaggio" textarea error={errors.message} />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground transition-transform hover:scale-[1.02] active:scale-95"
+              >
+                <Send className="size-4" /> Invia richiesta
+              </button>
+
+              {state === "ok" && (
+                <p className="mt-6 rounded-xl bg-accent/15 p-4 text-sm text-accent-foreground border border-accent/30">
+                  Grazie! Ti ricontatteremo entro 24 ore.
+                </p>
+              )}
+              {state === "error" && Object.keys(errors).length > 0 && (
+                <p className="mt-6 rounded-xl bg-destructive/15 p-4 text-sm">
+                  Controlla i campi evidenziati.
+                </p>
+              )}
+            </form>
+          </FadeIn>
         </div>
       </section>
 
-      <section className="pb-24">
+      <FadeIn className="pb-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="overflow-hidden rounded-3xl border border-border/60">
             <iframe
@@ -171,7 +194,7 @@ export default function ContattiPage() {
             />
           </div>
         </div>
-      </section>
+      </FadeIn>
     </>
   );
 }

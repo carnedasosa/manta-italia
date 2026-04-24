@@ -11,6 +11,7 @@ import p2 from "@/assets/portfolio-2.jpg";
 import p3 from "@/assets/portfolio-3.jpg";
 import p5 from "@/assets/portfolio-5.jpg";
 import { CONTACT } from "@/lib/contacts";
+import { FadeIn, StaggerContainer, StaggerItem, ScaleIn, HoverScale } from "@/components/framer-animations";
 
 export const metadata = {
   title: "Manta Italia — Installazione Infissi e Porte Blindate a Bari",
@@ -41,18 +42,24 @@ export default function Index() {
       {/* Hero */}
       <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-32">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-6">
-            <span className="inline-block rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
-              Installatori a Bari · in tutta Italia
-            </span>
-            <h1 className="mt-6 font-display text-5xl md:text-7xl xl:text-[5.5rem] leading-[1.02] tracking-tight">
-              L'architettura della <em className="font-normal">luce</em> mediterranea.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
-              Installazione di infissi, porte blindate, tapparelle e zanzariere.
-              Esperienza pluriennale, qualità reale, prezzo giusto.
-            </p>
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+          <StaggerContainer className="lg:col-span-6">
+            <StaggerItem>
+              <span className="inline-block rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
+                Installatori a Bari · in tutta Italia
+              </span>
+            </StaggerItem>
+            <StaggerItem>
+              <h1 className="mt-6 font-display text-5xl md:text-7xl xl:text-[5.5rem] leading-[1.02] tracking-tight">
+                L'architettura della <em className="font-normal">luce</em> mediterranea.
+              </h1>
+            </StaggerItem>
+            <StaggerItem>
+              <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
+                Installazione di infissi, porte blindate, tapparelle e zanzariere.
+                Esperienza pluriennale, qualità reale, prezzo giusto.
+              </p>
+            </StaggerItem>
+            <StaggerItem className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/contatti"
                 className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.02] active:scale-95"
@@ -65,15 +72,15 @@ export default function Index() {
               >
                 <Phone className="size-4" /> Chiama ora
               </a>
-            </div>
-            <div className="mt-10 flex flex-wrap items-center gap-6 text-xs text-muted-foreground uppercase tracking-widest">
+            </StaggerItem>
+            <StaggerItem className="mt-10 flex flex-wrap items-center gap-6 text-xs text-muted-foreground uppercase tracking-widest">
               <span className="flex items-center gap-2"><Star className="size-3.5 fill-accent text-accent" /> Sopralluogo gratuito</span>
               <span className="flex items-center gap-2"><Star className="size-3.5 fill-accent text-accent" /> Garanzia inclusa</span>
               <span className="flex items-center gap-2"><Star className="size-3.5 fill-accent text-accent" /> Risposta in 24h</span>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
 
-          <div className="relative lg:col-span-6">
+          <ScaleIn className="relative lg:col-span-6" delay={0.2}>
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-secondary shadow-2xl">
               <Image
                 src={hero}
@@ -91,14 +98,14 @@ export default function Index() {
                 Manta Italia
               </p>
             </div>
-          </div>
+          </ScaleIn>
         </div>
       </section>
 
       {/* Services preview */}
-      <section className="bg-secondary/40 py-20 md:py-28">
+      <section className="bg-secondary/40 py-20 md:py-28 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <FadeIn className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="max-w-xl">
               <h2 className="font-display text-4xl md:text-5xl tracking-tight">
                 Servizi su misura per il tuo abitare
@@ -114,59 +121,68 @@ export default function Index() {
             >
               Tutti i servizi <ArrowRight className="size-4" />
             </Link>
-          </div>
+          </FadeIn>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <StaggerContainer className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((s) => (
-              <Link
-                href="/servizi"
-                key={s.title}
-                className="group rounded-3xl border border-border/40 bg-background p-3 transition-transform hover:-translate-y-1"
-              >
-                <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-secondary">
-                  <Image
-                    src={s.img}
-                    alt={s.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="px-3 pb-4 pt-5">
-                  <h3 className="text-lg font-semibold tracking-tight">{s.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.body}</p>
-                </div>
-              </Link>
+              <StaggerItem key={s.title}>
+                <HoverScale>
+                  <Link
+                    href="/servizi"
+                    className="group block rounded-3xl border border-border/40 bg-background p-3 transition-colors hover:border-accent/40"
+                  >
+                    <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-secondary">
+                      <Image
+                        src={s.img}
+                        alt={s.title}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="px-3 pb-4 pt-5">
+                      <h3 className="text-lg font-semibold tracking-tight">{s.title}</h3>
+                      <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.body}</p>
+                    </div>
+                  </Link>
+                </HoverScale>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Strengths */}
       <section className="py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="max-w-2xl font-display text-4xl md:text-5xl tracking-tight">
-            Perché sceglierci? Quattro <em className="font-normal">buoni motivi</em>.
-          </h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <FadeIn>
+            <h2 className="max-w-2xl font-display text-4xl md:text-5xl tracking-tight">
+              Perché sceglierci? Quattro <em className="font-normal">buoni motivi</em>.
+            </h2>
+          </FadeIn>
+          <StaggerContainer className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
               { i: Award, t: "25+ anni", d: "di esperienza in cantieri pubblici e privati." },
               { i: ShieldCheck, t: "Posa certificata", d: "secondo le normative UNI di settore." },
               { i: HeartHandshake, t: "Prezzo giusto", d: "preventivi chiari, niente sorprese." },
               { i: Wrench, t: "Assistenza", d: "ti seguiamo anche dopo l'installazione." },
             ].map((v) => (
-              <div key={v.t} className="rounded-2xl border border-border/60 p-8">
-                <v.i className="size-7 text-accent" />
-                <h3 className="mt-5 text-xl font-semibold">{v.t}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{v.d}</p>
-              </div>
+              <StaggerItem key={v.t}>
+                <HoverScale className="h-full">
+                  <div className="h-full rounded-2xl border border-border/60 p-8 transition-colors hover:border-accent/40">
+                    <v.i className="size-7 text-accent" />
+                    <h3 className="mt-5 text-xl font-semibold">{v.t}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{v.d}</p>
+                  </div>
+                </HoverScale>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Portfolio preview */}
-      <section className="bg-secondary/40 py-20 md:py-28">
+      <section className="bg-secondary/40 py-20 md:py-28 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <FadeIn className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <h2 className="max-w-xl font-display text-4xl md:text-5xl tracking-tight">
               I nostri lavori, la nostra firma.
             </h2>
@@ -176,15 +192,15 @@ export default function Index() {
             >
               Vedi tutto <ArrowRight className="size-4" />
             </Link>
-          </div>
-          <div className="mt-12 grid gap-4 md:grid-cols-4 md:grid-rows-2 md:[grid-template-areas:'a_a_b_c''a_a_d_d']">
+          </FadeIn>
+          <StaggerContainer className="mt-12 grid gap-4 md:grid-cols-4 md:grid-rows-2 md:[grid-template-areas:'a_a_b_c''a_a_d_d']">
             {[
               { img: p1, area: "a", h: "Villa privata · Mola di Bari" },
               { img: p2, area: "b", h: "Ingresso blindato · Bari" },
               { img: p3, area: "c", h: "Vetrate · Polignano" },
               { img: p5, area: "d", h: "Trullo · Alberobello" },
             ].map((w) => (
-              <figure
+              <StaggerItem
                 key={w.h}
                 style={{ gridArea: w.area }}
                 className="group relative aspect-[4/3] overflow-hidden rounded-3xl bg-secondary md:aspect-auto"
@@ -197,9 +213,9 @@ export default function Index() {
                 <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5 text-xs font-bold uppercase tracking-widest text-white">
                   {w.h}
                 </figcaption>
-              </figure>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -228,7 +244,7 @@ export default function Index() {
       </section>
 
       {/* Final CTA */}
-      <section className="px-6 pb-24">
+      <FadeIn className="px-6 pb-24">
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] bg-primary p-12 text-center text-primary-foreground md:p-20">
           <h2 className="mx-auto max-w-2xl font-display text-4xl md:text-6xl leading-[1.05] tracking-tight">
             Pronto a cambiare prospettiva?
@@ -240,7 +256,7 @@ export default function Index() {
           <div className="mt-10 flex flex-col items-center justify-center gap-5 sm:flex-row">
             <Link
               href="/contatti"
-              className="rounded-full bg-background px-8 py-4 text-sm font-semibold text-foreground hover:bg-secondary"
+              className="rounded-full bg-background px-8 py-4 text-sm font-semibold text-foreground transition-transform hover:scale-105 active:scale-95"
             >
               Richiedi preventivo gratis
             </Link>
@@ -252,7 +268,7 @@ export default function Index() {
             </a>
           </div>
         </div>
-      </section>
+      </FadeIn>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { FadeIn, StaggerContainer, StaggerItem, HoverScale } from "@/components/framer-animations";
 import p1 from "@/assets/portfolio-1.jpg";
 import p2 from "@/assets/portfolio-2.jpg";
 import p3 from "@/assets/portfolio-3.jpg";
@@ -29,61 +30,71 @@ const WORKS = [
 export default function PortfolioPage() {
   return (
     <>
-      <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <span className="inline-block rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
-            Portfolio
-          </span>
-          <h1 className="mt-6 max-w-3xl font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
-            Lavori che <em className="font-normal">parlano</em> per noi.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-            Una selezione delle installazioni realizzate per privati e aziende. Ogni cantiere è
-            la nostra firma.
-          </p>
-        </div>
+      <section className="py-20 md:py-28 overflow-hidden">
+        <StaggerContainer className="mx-auto max-w-7xl px-6">
+          <StaggerItem>
+            <span className="inline-block rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
+              Portfolio
+            </span>
+          </StaggerItem>
+          <StaggerItem>
+            <h1 className="mt-6 max-w-3xl font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
+              Lavori che <em className="font-normal">parlano</em> per noi.
+            </h1>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+              Una selezione delle installazioni realizzate per privati e aziende. Ogni cantiere è
+              la nostra firma.
+            </p>
+          </StaggerItem>
+        </StaggerContainer>
       </section>
 
-      <section className="pb-20">
+      <section className="pb-20 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {WORKS.map((w) => (
-              <figure key={w.title} className="group overflow-hidden rounded-3xl bg-secondary">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={w.img}
-                    alt={w.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <figcaption className="flex items-end justify-between bg-background p-5">
-                  <div>
-                    <h3 className="font-semibold">{w.title}</h3>
-                    <p className="text-xs text-muted-foreground">{w.loc}</p>
-                  </div>
-                  <span className="rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
-                    {w.tag}
-                  </span>
-                </figcaption>
-              </figure>
+              <StaggerItem key={w.title}>
+                <HoverScale>
+                  <figure className="group overflow-hidden rounded-3xl bg-secondary">
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <Image
+                        src={w.img}
+                        alt={w.title}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <figcaption className="flex items-end justify-between bg-background p-5">
+                      <div>
+                        <h3 className="font-semibold">{w.title}</h3>
+                        <p className="text-xs text-muted-foreground">{w.loc}</p>
+                      </div>
+                      <span className="rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
+                        {w.tag}
+                      </span>
+                    </figcaption>
+                  </figure>
+                </HoverScale>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
-      <section className="bg-primary py-16 text-primary-foreground">
+      <FadeIn className="bg-primary py-16 text-primary-foreground">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 px-6 text-center">
           <h2 className="font-display text-3xl md:text-4xl tracking-tight">
             Il prossimo lavoro potrebbe essere il tuo.
           </h2>
           <Link
             href="/contatti"
-            className="rounded-full bg-background px-8 py-4 text-sm font-semibold text-foreground hover:bg-secondary transition-colors"
+            className="rounded-full bg-background px-8 py-4 text-sm font-semibold text-foreground hover:bg-secondary transition-transform hover:scale-105 active:scale-95"
           >
             Richiedi un preventivo gratuito
           </Link>
         </div>
-      </section>
+      </FadeIn>
     </>
   );
 }

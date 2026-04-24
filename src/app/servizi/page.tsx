@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { FadeIn, StaggerContainer, StaggerItem, ScaleIn } from "@/components/framer-animations";
 import infissi from "@/assets/service-infissi.jpg";
 import porte from "@/assets/service-porte.jpg";
 import tapparelle from "@/assets/service-tapparelle.jpg";
@@ -52,22 +53,28 @@ const SERVICES = [
 export default function ServiziPage() {
   return (
     <>
-      <section className="bg-secondary/30 py-20 md:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <span className="inline-block rounded-full bg-background px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
-            I nostri servizi
-          </span>
-          <h1 className="mt-6 max-w-3xl font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
-            Solo <em className="font-normal">installazione</em>. Fatta come si deve.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-            Non vendiamo prodotti: installiamo, sostituiamo e ripariamo. Questa è la nostra
-            specializzazione, e per questo la facciamo meglio di chiunque altro.
-          </p>
-        </div>
+      <section className="bg-secondary/30 py-20 md:py-28 overflow-hidden">
+        <StaggerContainer className="mx-auto max-w-7xl px-6">
+          <StaggerItem>
+            <span className="inline-block rounded-full bg-background px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
+              I nostri servizi
+            </span>
+          </StaggerItem>
+          <StaggerItem>
+            <h1 className="mt-6 max-w-3xl font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
+              Solo <em className="font-normal">installazione</em>. Fatta come si deve.
+            </h1>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+              Non vendiamo prodotti: installiamo, sostituiamo e ripariamo. Questa è la nostra
+              specializzazione, e per questo la facciamo meglio di chiunque altro.
+            </p>
+          </StaggerItem>
+        </StaggerContainer>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="py-20 md:py-28 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 space-y-20">
           {SERVICES.map((s, i) => (
             <div
@@ -76,14 +83,14 @@ export default function ServiziPage() {
                 i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
               }`}
             >
-              <div className="aspect-[5/4] overflow-hidden rounded-3xl bg-secondary">
+              <ScaleIn className="aspect-[5/4] overflow-hidden rounded-3xl bg-secondary">
                 <Image
                   src={s.img}
                   alt={s.title}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
-              </div>
-              <div>
+              </ScaleIn>
+              <FadeIn delay={0.2}>
                 <span className="text-xs font-bold uppercase tracking-widest text-accent">
                   0{i + 1}
                 </span>
@@ -99,11 +106,11 @@ export default function ServiziPage() {
                 </ul>
                 <Link
                   href="/contatti"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105 active:scale-95"
                 >
                   Richiedi preventivo <ArrowRight className="size-4" />
                 </Link>
-              </div>
+              </FadeIn>
             </div>
           ))}
         </div>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Award, HeartHandshake, ShieldCheck, Wrench } from "lucide-react";
 import portfolio1 from "@/assets/portfolio-1.jpg";
+import { FadeIn, StaggerContainer, StaggerItem, ScaleIn, HoverScale } from "@/components/framer-animations";
 
 export const metadata = {
   title: "Chi siamo — Manta Italia, installatori dal 1995",
@@ -24,14 +25,18 @@ export default function ChiSiamoPage() {
     <>
       <section className="py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-12">
-          <div className="lg:col-span-6">
-            <span className="inline-block rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
-              Chi siamo
-            </span>
-            <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
-              Una ditta a <em className="font-normal">misura d'uomo</em>, una posa di livello industriale.
-            </h1>
-            <div className="mt-8 space-y-5 text-lg text-muted-foreground leading-relaxed">
+          <StaggerContainer className="lg:col-span-6">
+            <StaggerItem>
+              <span className="inline-block rounded-full bg-secondary px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
+                Chi siamo
+              </span>
+            </StaggerItem>
+            <StaggerItem>
+              <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] tracking-tight">
+                Una ditta a <em className="font-normal">misura d'uomo</em>, una posa di livello industriale.
+              </h1>
+            </StaggerItem>
+            <StaggerItem className="mt-8 space-y-5 text-lg text-muted-foreground leading-relaxed">
               <p>
                 Manta Italia nasce a Bari dall'esperienza pluriennale del suo titolare nel
                 mondo dei serramenti. Una scelta precisa: dedicarsi <strong className="text-foreground">solo</strong> all'installazione,
@@ -42,9 +47,9 @@ export default function ChiSiamoPage() {
                 completo. La nostra forza sta nella cura del dettaglio, nel rispetto degli orari
                 e nella trasparenza totale sui costi.
               </p>
-            </div>
-          </div>
-          <div className="lg:col-span-6">
+            </StaggerItem>
+          </StaggerContainer>
+          <ScaleIn className="lg:col-span-6" delay={0.2}>
             <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-secondary shadow-2xl">
               <Image 
                 src={portfolio1} 
@@ -52,28 +57,34 @@ export default function ChiSiamoPage() {
                 className="h-full w-full object-cover" 
               />
             </div>
-          </div>
+          </ScaleIn>
         </div>
       </section>
 
-      <section className="bg-secondary/40 py-20 md:py-28">
+      <section className="bg-secondary/40 py-20 md:py-28 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="max-w-2xl font-display text-4xl md:text-5xl tracking-tight">
-            I valori che guidano ogni installazione.
-          </h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <FadeIn>
+            <h2 className="max-w-2xl font-display text-4xl md:text-5xl tracking-tight">
+              I valori che guidano ogni installazione.
+            </h2>
+          </FadeIn>
+          <StaggerContainer className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((v) => (
-              <div key={v.title} className="rounded-2xl border border-border/60 bg-background p-8">
-                <v.icon className="size-7 text-accent" />
-                <h3 className="mt-5 text-lg font-semibold">{v.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{v.body}</p>
-              </div>
+              <StaggerItem key={v.title}>
+                <HoverScale className="h-full">
+                  <div className="h-full rounded-2xl border border-border/60 bg-background p-8 transition-colors hover:border-accent/40">
+                    <v.icon className="size-7 text-accent" />
+                    <h3 className="mt-5 text-lg font-semibold">{v.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{v.body}</p>
+                  </div>
+                </HoverScale>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
+      <FadeIn className="py-20 md:py-28">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <h2 className="font-display text-4xl md:text-5xl tracking-tight">
             Pronto a lavorare con noi?
@@ -86,7 +97,7 @@ export default function ChiSiamoPage() {
             Richiedi preventivo
           </Link>
         </div>
-      </section>
+      </FadeIn>
     </>
   );
 }
