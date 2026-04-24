@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Award, HeartHandshake, Phone, ShieldCheck, Star, Wrench } from "lucide-react";
 import hero from "@/assets/hero-windows.jpg";
 import infissi from "@/assets/service-infissi.jpg";
@@ -11,23 +12,15 @@ import p3 from "@/assets/portfolio-3.jpg";
 import p5 from "@/assets/portfolio-5.jpg";
 import { CONTACT } from "@/lib/contacts";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Manta Italia — Installazione Infissi e Porte Blindate a Bari" },
-      {
-        name: "description",
-        content:
-          "Installazione professionale di infissi, porte blindate, tapparelle e zanzariere a Bari e in tutta Italia. Esperienza, qualità e prezzo giusto.",
-      },
-      { property: "og:title", content: "Manta Italia — Installazione Infissi e Porte Blindate" },
-      { property: "og:description", content: "Installiamo infissi, porte blindate, tapparelle e zanzariere. Bari e tutta Italia." },
-      { property: "og:image", content: hero },
-      { name: "twitter:image", content: hero },
-    ],
-  }),
-  component: Index,
-});
+export const metadata = {
+  title: "Manta Italia — Installazione Infissi e Porte Blindate a Bari",
+  description: "Installazione professionale di infissi, porte blindate, tapparelle e zanzariere a Bari e in tutta Italia. Esperienza, qualità e prezzo giusto.",
+  openGraph: {
+    title: "Manta Italia — Installazione Infissi e Porte Blindate",
+    description: "Installiamo infissi, porte blindate, tapparelle e zanzariere. Bari e tutta Italia.",
+    images: [{ url: hero.src }],
+  },
+};
 
 const SERVICES = [
   { title: "Infissi", img: infissi, body: "PVC, alluminio e legno. Massimo isolamento termico e acustico." },
@@ -42,7 +35,7 @@ const REVIEWS = [
   { name: "Anna L.", text: "La porta blindata è una sicurezza. Consiglio Manta Italia ad occhi chiusi." },
 ];
 
-function Index() {
+export default function Index() {
   return (
     <>
       {/* Hero */}
@@ -61,7 +54,7 @@ function Index() {
             </p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                to="/contatti"
+                href="/contatti"
                 className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.02] active:scale-95"
               >
                 Richiedi un preventivo
@@ -82,11 +75,10 @@ function Index() {
 
           <div className="relative lg:col-span-6">
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-secondary shadow-2xl">
-              <img
+              <Image
                 src={hero}
                 alt="Infissi installati in dimora mediterranea"
-                width={1280}
-                height={1536}
+                priority
                 className="h-full w-full object-cover"
               />
             </div>
@@ -117,7 +109,7 @@ function Index() {
               </p>
             </div>
             <Link
-              to="/servizi"
+              href="/servizi"
               className="inline-flex w-fit items-center gap-2 text-sm font-bold uppercase tracking-widest hover:gap-4 transition-all"
             >
               Tutti i servizi <ArrowRight className="size-4" />
@@ -127,15 +119,14 @@ function Index() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((s) => (
               <Link
-                to="/servizi"
+                href="/servizi"
                 key={s.title}
                 className="group rounded-3xl border border-border/40 bg-background p-3 transition-transform hover:-translate-y-1"
               >
                 <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-secondary">
-                  <img
+                  <Image
                     src={s.img}
                     alt={s.title}
-                    loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
@@ -180,7 +171,7 @@ function Index() {
               I nostri lavori, la nostra firma.
             </h2>
             <Link
-              to="/portfolio"
+              href="/portfolio"
               className="inline-flex w-fit items-center gap-2 text-sm font-bold uppercase tracking-widest hover:gap-4 transition-all"
             >
               Vedi tutto <ArrowRight className="size-4" />
@@ -198,10 +189,9 @@ function Index() {
                 style={{ gridArea: w.area }}
                 className="group relative aspect-[4/3] overflow-hidden rounded-3xl bg-secondary md:aspect-auto"
               >
-                <img
+                <Image
                   src={w.img}
                   alt={w.h}
-                  loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5 text-xs font-bold uppercase tracking-widest text-white">
@@ -249,7 +239,7 @@ function Index() {
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-5 sm:flex-row">
             <Link
-              to="/contatti"
+              href="/contatti"
               className="rounded-full bg-background px-8 py-4 text-sm font-semibold text-foreground hover:bg-secondary"
             >
               Richiedi preventivo gratis

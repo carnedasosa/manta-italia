@@ -1,24 +1,9 @@
+'use client';
+
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 import { z } from "zod";
 import { CONTACT } from "@/lib/contacts";
-
-export const Route = createFileRoute("/contatti")({
-  head: () => ({
-    meta: [
-      { title: "Contatti — Richiedi un preventivo | Manta Italia" },
-      {
-        name: "description",
-        content:
-          "Contatta Manta Italia per un preventivo gratuito su infissi, porte blindate, tapparelle e zanzariere. Telefono, WhatsApp, email e mappa.",
-      },
-      { property: "og:title", content: "Contatti — Manta Italia" },
-      { property: "og:description", content: "Richiedi un preventivo gratuito. Telefono, WhatsApp, email." },
-    ],
-  }),
-  component: ContattiPage,
-});
 
 const schema = z.object({
   name: z.string().trim().min(2, "Inserisci il tuo nome").max(100),
@@ -30,7 +15,7 @@ const schema = z.object({
 
 type FormState = "idle" | "ok" | "error";
 
-function ContattiPage() {
+export default function ContattiPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [state, setState] = useState<FormState>("idle");
 

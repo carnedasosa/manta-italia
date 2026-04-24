@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import infissi from "@/assets/service-infissi.jpg";
 import porte from "@/assets/service-porte.jpg";
@@ -6,21 +7,14 @@ import tapparelle from "@/assets/service-tapparelle.jpg";
 import zanzariere from "@/assets/service-zanzariere.jpg";
 import manutenzione from "@/assets/service-manutenzione.jpg";
 
-export const Route = createFileRoute("/servizi")({
-  head: () => ({
-    meta: [
-      { title: "Servizi — Infissi, Porte Blindate, Tapparelle | Manta Italia" },
-      {
-        name: "description",
-        content:
-          "I servizi di Manta Italia: installazione infissi, porte blindate, tapparelle, zanzariere e manutenzione. Lavoriamo a Bari e in tutta Italia.",
-      },
-      { property: "og:title", content: "Servizi — Manta Italia" },
-      { property: "og:description", content: "Installazione infissi, porte blindate, tapparelle, zanzariere e manutenzione." },
-    ],
-  }),
-  component: ServiziPage,
-});
+export const metadata = {
+  title: "Servizi — Infissi, Porte Blindate, Tapparelle | Manta Italia",
+  description: "I servizi di Manta Italia: installazione infissi, porte blindate, tapparelle, zanzariere e manutenzione. Lavoriamo a Bari e in tutta Italia.",
+  openGraph: {
+    title: "Servizi — Manta Italia",
+    description: "Installazione infissi, porte blindate, tapparelle, zanzariere and manutenzione.",
+  },
+};
 
 const SERVICES = [
   {
@@ -55,7 +49,7 @@ const SERVICES = [
   },
 ] as const;
 
-function ServiziPage() {
+export default function ServiziPage() {
   return (
     <>
       <section className="bg-secondary/30 py-20 md:py-28">
@@ -83,10 +77,9 @@ function ServiziPage() {
               }`}
             >
               <div className="aspect-[5/4] overflow-hidden rounded-3xl bg-secondary">
-                <img
+                <Image
                   src={s.img}
                   alt={s.title}
-                  loading="lazy"
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -105,8 +98,8 @@ function ServiziPage() {
                   ))}
                 </ul>
                 <Link
-                  to="/contatti"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
+                  href="/contatti"
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
                 >
                   Richiedi preventivo <ArrowRight className="size-4" />
                 </Link>

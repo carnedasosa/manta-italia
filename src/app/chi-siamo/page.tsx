@@ -1,22 +1,16 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import Link from "next/link";
+import Image from "next/image";
 import { Award, HeartHandshake, ShieldCheck, Wrench } from "lucide-react";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 
-export const Route = createFileRoute("/chi-siamo")({
-  head: () => ({
-    meta: [
-      { title: "Chi siamo — Manta Italia, installatori dal 1995" },
-      {
-        name: "description",
-        content:
-          "Manta Italia: ditta individuale specializzata nell'installazione di infissi e porte blindate. Esperienza pluriennale, Bari e tutta Italia.",
-      },
-      { property: "og:title", content: "Chi siamo — Manta Italia" },
-      { property: "og:description", content: "Esperienza pluriennale nell'installazione di infissi, porte blindate e accessori." },
-    ],
-  }),
-  component: ChiSiamoPage,
-});
+export const metadata = {
+  title: "Chi siamo — Manta Italia, installatori dal 1995",
+  description: "Manta Italia: ditta individuale specializzata nell'installazione di infissi e porte blindate. Esperienza pluriennale, Bari e tutta Italia.",
+  openGraph: {
+    title: "Chi siamo — Manta Italia",
+    description: "Esperienza pluriennale nell'installazione di infissi, porte blindate e accessori.",
+  },
+};
 
 const VALUES = [
   { icon: Award, title: "Esperienza", body: "Oltre 25 anni nei cantieri pugliesi e in tutta Italia." },
@@ -25,7 +19,7 @@ const VALUES = [
   { icon: Wrench, title: "Affidabilità", body: "Rispettiamo i tempi concordati e siamo presenti dopo l'installazione." },
 ];
 
-function ChiSiamoPage() {
+export default function ChiSiamoPage() {
   return (
     <>
       <section className="py-20 md:py-28">
@@ -52,7 +46,11 @@ function ChiSiamoPage() {
           </div>
           <div className="lg:col-span-6">
             <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-secondary shadow-2xl">
-              <img src={portfolio1} alt="Lavoro Manta Italia" loading="lazy" className="h-full w-full object-cover" />
+              <Image 
+                src={portfolio1} 
+                alt="Lavoro Manta Italia" 
+                className="h-full w-full object-cover" 
+              />
             </div>
           </div>
         </div>
@@ -82,8 +80,8 @@ function ChiSiamoPage() {
           </h2>
           <p className="mt-4 text-muted-foreground">Sopralluogo e preventivo sono gratuiti.</p>
           <Link
-            to="/contatti"
-            className="mt-8 inline-block rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground"
+            href="/contatti"
+            className="mt-8 inline-block rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105 active:scale-95"
           >
             Richiedi preventivo
           </Link>

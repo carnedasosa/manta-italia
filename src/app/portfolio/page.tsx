@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import Link from "next/link";
+import Image from "next/image";
 import p1 from "@/assets/portfolio-1.jpg";
 import p2 from "@/assets/portfolio-2.jpg";
 import p3 from "@/assets/portfolio-3.jpg";
@@ -6,23 +7,15 @@ import p4 from "@/assets/portfolio-4.jpg";
 import p5 from "@/assets/portfolio-5.jpg";
 import p6 from "@/assets/portfolio-6.jpg";
 
-export const Route = createFileRoute("/portfolio")({
-  head: () => ({
-    meta: [
-      { title: "Portfolio lavori — Manta Italia" },
-      {
-        name: "description",
-        content:
-          "Una selezione delle installazioni di Manta Italia: infissi, porte blindate, tapparelle e zanzariere realizzate a Bari e in tutta Italia.",
-      },
-      { property: "og:title", content: "Portfolio — Manta Italia" },
-      { property: "og:description", content: "Una selezione dei nostri lavori di installazione." },
-      { property: "og:image", content: p1 },
-      { name: "twitter:image", content: p1 },
-    ],
-  }),
-  component: PortfolioPage,
-});
+export const metadata = {
+  title: "Portfolio lavori — Manta Italia",
+  description: "Una selezione delle installazioni di Manta Italia: infissi, porte blindate, tapparelle e zanzariere realizzate a Bari e in tutta Italia.",
+  openGraph: {
+    title: "Portfolio — Manta Italia",
+    description: "Una selezione dei nostri lavori di installazione.",
+    images: [{ url: p1.src }],
+  },
+};
 
 const WORKS = [
   { img: p1, title: "Villa privata", tag: "Infissi alluminio", loc: "Mola di Bari" },
@@ -33,7 +26,7 @@ const WORKS = [
   { img: p6, title: "Camera da letto", tag: "Tapparelle motorizzate", loc: "Monopoli" },
 ];
 
-function PortfolioPage() {
+export default function PortfolioPage() {
   return (
     <>
       <section className="py-20 md:py-28">
@@ -57,10 +50,9 @@ function PortfolioPage() {
             {WORKS.map((w) => (
               <figure key={w.title} className="group overflow-hidden rounded-3xl bg-secondary">
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img
+                  <Image
                     src={w.img}
                     alt={w.title}
-                    loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
@@ -85,8 +77,8 @@ function PortfolioPage() {
             Il prossimo lavoro potrebbe essere il tuo.
           </h2>
           <Link
-            to="/contatti"
-            className="rounded-full bg-background px-8 py-4 text-sm font-semibold text-foreground"
+            href="/contatti"
+            className="rounded-full bg-background px-8 py-4 text-sm font-semibold text-foreground hover:bg-secondary transition-colors"
           >
             Richiedi un preventivo gratuito
           </Link>
